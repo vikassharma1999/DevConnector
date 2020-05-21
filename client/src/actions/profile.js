@@ -7,6 +7,7 @@ import {
   DELETE_ACCOUNT,
   CLEAR_PROFILE,
 } from './types';
+import { Redirect } from 'react-router-dom';
 
 //Get current user profile
 
@@ -117,7 +118,8 @@ export const addEducation = (formData, history) => async (dispatch) => {
 
 export const deleteExperience = (id) => async (dispatch) => {
   try {
-    const res = axios.delete(`/api/profile/experience/${id}`);
+    const res = await axios.delete(`/api/profile/experience/${id}`);
+    // console.log(res);
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
@@ -136,7 +138,7 @@ export const deleteExperience = (id) => async (dispatch) => {
 
 export const deleteEducation = (id) => async (dispatch) => {
   try {
-    const res = axios.delete(`/api/profile/education/${id}`);
+    const res = await axios.delete(`/api/profile/education/${id}`);
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
@@ -155,7 +157,7 @@ export const deleteEducation = (id) => async (dispatch) => {
 export const deleteAccount = () => async (dispatch) => {
   if (window.confirm('Are you sure? This can NOT be undone!')) {
     try {
-      const res = axios.delete('api/profile');
+      const res = await axios.delete('api/profile');
       dispatch({
         type: CLEAR_PROFILE,
       });
