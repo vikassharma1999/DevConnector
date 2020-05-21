@@ -214,19 +214,34 @@ router.put(
 // @desc delete experience from profile
 // @access private
 
+// router.delete('/experience/:exp_id', auth, async (req, res) => {
+//   try {
+//     const profile = await Profile.findOne({ user: req.user.id });
+//     //Get remove index
+//     const removeIndex = profile.experience
+//       .map((item) => item.id)
+//       .indexOf(req.params.exp_id);
+//     profile.experience.splice(removeIndex, 1);
+//     await profile.save();
+//     res.json(profile);
+//   } catch (err) {
+//     console.error(err.message);
+//     res.status(500).send('Server error');
+//   }
+// });
 router.delete('/experience/:exp_id', auth, async (req, res) => {
   try {
-    const profile = await Profile.findOne({ user: req.user.id });
-    //Get remove index
-    const removeIndex = profile.experience
-      .map((item) => item.id)
-      .indexOf(req.params.exp_id);
-    profile.experience.splice(removeIndex, 1);
-    await profile.save();
-    res.json(profile);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server error');
+    const foundProfile = await Profile.findOne({ user: req.user.id });
+
+    foundProfile.experience = foundProfile.experience.filter(
+      (exp) => exp._id.toString() !== req.params.exp_id
+    );
+
+    await foundProfile.save();
+    return res.status(200).json(foundProfile);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ msg: 'Server error' });
   }
 });
 
