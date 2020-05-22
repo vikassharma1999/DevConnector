@@ -1,0 +1,6 @@
+{
+  "mongoURI": "mongodb+srv://vikas123:vikas123@devconnector-pvqwi.mongodb.net/test?retryWrites=true&w=majority",
+  "jwtSecret": "vikassharma",
+  "githubClientId": "ff084a4dd5d12366e7fe",
+  "githubClientSecret": "cf7c90185259796d7835c4d63a9b107dad49f269"
+}
